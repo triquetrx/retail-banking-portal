@@ -1,0 +1,80 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 100vh !important;
+  z-index: 100;
+  padding: 48px 0 0;
+  width: 14rem;
+  z-index: 199;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  height: 100vh;
+}
+
+.topBar {
+  background: rgba(238, 244, 237, 0.8);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.design {
+  position: fixed;
+  top: -13rem;
+  left: -16rem;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 50%;
+}
+
+#nav-option {
+  margin-left: -0.5rem;
+  padding-left: 0rem;
+}
+
+#nav-option a:hover {
+  text-decoration: none;
+}
+
+.active {
+  color: #af1b3f;
+  padding-left: 0.7rem !important;
+  text-decoration: none;
+  border-left: 0.7rem solid #af1b3f;
+}
+
+@media screen and (min-width: 768px) and (max-height: 610px) {
+  .sidebar {
+    width: 18rem;
+  }
+  #main {
+    margin-left: -4rem;
+  }
+}
+
+.logout {
+  position: fixed;
+  width: 90%;
+  left: 0.7rem;
+  bottom: 1rem;
+}
+
+.card {
+  margin: 0.3rem;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+button:hover {
+  cursor: pointer;
+}

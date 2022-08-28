@@ -1,0 +1,22 @@
+.App::-webkit-scrollbar {
+  display: none;
+}
+
+.App {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  font-family: "Montserrat", sans-serif;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

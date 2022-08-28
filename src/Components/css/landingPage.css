@@ -1,0 +1,39 @@
+nav {
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.design-landing-page {
+  position: fixed;
+  top: -21rem;
+  right: -16rem;
+  width: 25rem;
+  height: 25rem;
+  border-radius: 50%;
+  background-color: #71a9f7;
+}
+
+.landing-page .active {
+  border: none;
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.whyus {
+  background-color: #f9f9f9;
+}
+
+.landing-page .whyus .card {
+  margin: 0.3rem;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
