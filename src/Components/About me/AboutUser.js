@@ -68,8 +68,8 @@ export default function AboutUser(props) {
         <Modal.Header className="bg-light">
           <Modal.Title>Confirm your identity</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="bg-light">
-          <Form onSubmit={verify}>
+        <Form onSubmit={verify}>
+          <Modal.Body className="bg-light">
             <Form.Group className="mb-3" controlId="password">
               <Form.Label>Enter you account password</Form.Label>
               <Form.Control
@@ -78,16 +78,16 @@ export default function AboutUser(props) {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer className="bg-light">
-          <Button variant="danger" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="outline-primary" type="submit">
-            Verify
-          </Button>
-        </Modal.Footer>
+          </Modal.Body>
+          <Modal.Footer className="bg-light">
+            <Button variant="danger" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button variant="outline-primary" type="submit">
+              Verify
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
       <h3 className="text-secondary mt-4">About me</h3>
       <hr />

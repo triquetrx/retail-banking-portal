@@ -22,8 +22,18 @@ export default function Login(props) {
         password: password,
       })
       .then((res) => {
-        cookies.set("token", res.body.token);
-        cookies.set("user", res.body.name);
+        cookies.set("token", res.body.token, {
+          path: "/",
+          expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
+          secure: true,
+          sameSite: true,
+        });
+        cookies.set("user", res.body.name, {
+          path: "/",
+          expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
+          secure: true,
+          sameSite: true,
+        });
         setLoggedIn(true);
       })
       .catch((err) => {
@@ -46,7 +56,7 @@ export default function Login(props) {
                 <Image src={require("../../images/login-page.png")} fluid />
               </Col>
               <div className="col-md px-3 px-md-2 pt-1 pt-md-5 mt-1 mt-md-5">
-                {isError ? (
+                {isError && !isLoggedIn ? (
                   <Alert key="danger" variant="danger">
                     {errorMessage}
                   </Alert>
@@ -96,12 +106,13 @@ export default function Login(props) {
             </Row>
           </Container>
           <div
-            className="text-center bg-danger text-light p-3"
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
+            className="text-center bg-danger p-3 mt-4"
+            style={{ color: "#fff" }}
           >
             © Designed by
             <a
-              className="text-light fw-bold pl-1"
+              className="fw-bold pl-1"
+              style={{ color: "#fff" }}
               href="https://triquetrx.netlify.app"
             >
               triquetrx

@@ -176,13 +176,11 @@ export default function Signup(props) {
           </Row>
         </Form>
       </Container>
-      <div
-        className="text-center bg-danger text-light p-3"
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
-      >
+      <div className="text-center bg-danger p-3" style={{ color: "#fff" }}>
         © Designed by
         <a
-          className="text-light fw-bold pl-1"
+          className="fw-bold pl-1"
+          style={{ color: "#fff" }}
           href="https://triquetrx.netlify.app"
         >
           triquetrx

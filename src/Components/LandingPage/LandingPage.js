@@ -1,17 +1,13 @@
 import { Component } from "react";
 import TopBarLandingPage from "./TopBarLandingPage";
 import "../css/landingPage.css";
-import { Button, Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import WhyUs from "./WhyUs";
 import InterestRates from "./InterestRates";
 import Bottom from "./Bottom";
 
 class LandingPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="landing-page">

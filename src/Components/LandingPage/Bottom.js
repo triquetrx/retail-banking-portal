@@ -1,21 +1,30 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 export default function Bottom(props) {
   return (
     <>
-      <footer className="bg-light text-muted mt-5">
+      <footer className="bg-light text-secondary text-muted mt-5">
         <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
           <div className="ml-5 d-none d-lg-block text-center text-md-left">
             <span>Get connected with us on social networks:</span>
           </div>
           <div className="text-center text-md-end">
-            <a href="" className="mx-3 mx-md-1 text-danger">
+            <a
+              href="https://www.facebook.com"
+              className="mx-3 mx-md-1 text-danger"
+            >
               <i className="fa-brands fa-square-facebook"></i>
             </a>
-            <a href="" className="mx-3 mx-md-1 text-danger">
+            <a
+              href="https://www.twitter.com"
+              className="mx-3 mx-md-1 text-danger"
+            >
               <i className="fa-brands fa-square-twitter"></i>
             </a>
-            <a href="" className="mx-3 mx-md-1 text-danger">
+            <a
+              href="https://www.linkedin.com"
+              className="mx-3 mx-md-1 text-danger"
+            >
               <i className="fa-brands fa-linkedin"></i>
             </a>
             <a
@@ -28,7 +37,7 @@ export default function Bottom(props) {
         </section>
         <Container className="py-4">
           <Row>
-            <div className="col-md text-center text-md-left">
+            <div className="col-md text-center text-secondary text-md-left">
               <h6 className="text-uppercase fw-bold mb-4">banking.com</h6>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
@@ -38,7 +47,7 @@ export default function Bottom(props) {
                 corrupti provident? Necessitatibus.
               </p>
             </div>
-            <div className="col-md mt-3 mt-md-0 text-center text-md-right">
+            <div className="col-md mt-3 mt-md-0 text-secondary text-center text-md-right">
               <h6 className="text-uppercase fw-bold mb-4">About creators</h6>
               <p>
                 This application was created with{" "}
@@ -52,13 +61,11 @@ export default function Bottom(props) {
           </Row>
         </Container>
 
-        <div
-          className="text-center bg-danger text-light p-3"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.05)" }}
-        >
+        <div className="text-center bg-danger p-3" style={{ color: "#fff" }}>
           © Designed by
           <a
-            className="text-light fw-bold pl-1"
+            className="fw-bold pl-1"
+            style={{ color: "#fff" }}
             href="https://triquetrx.netlify.app"
           >
             triquetrx

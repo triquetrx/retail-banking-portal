@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 
 function TopBarAdmin() {
   const [isLogout, setLogout] = useState(false);
+  const [currentPage, setCurrentPage] = useState("");
+  const [isDarkMode, setDarkMode] = useState(false);
   const cookies = new Cookies();
 
   let logoutRemove = () => {
@@ -29,6 +31,53 @@ function TopBarAdmin() {
       $("#signup-requests").addClass("active text-danger");
     } else if (window.location.href.includes("statement")) {
       $("#statement").addClass("active text-danger");
+    }
+
+    setCurrentPage("");
+    if (cookies.get("mode") === "dark") {
+      setDarkMode(true);
+      $(".App").css("background-color", "#040404");
+      $(".dropdown-menu").css("background-color", "#040404");
+      $(".App .text-secondary")
+        .addClass("text-light")
+        .removeClass("text-secondary");
+      $(".App .bg-light").addClass("bg-dark").removeClass("bg-light");
+      $(".App .text-danger").addClass("text-white").removeClass("text-danger");
+      $(".App .btn-danger").addClass("btn-warning").removeClass("btn-danger");
+      $(".App .bg-danger").addClass("bg-warning").removeClass("bg-danger");
+      $(".App .btn-outline-danger")
+        .addClass("btn-outline-warning")
+        .removeClass("btn-outline-danger");
+      $(".App nav")
+        .css("background", "rgba( 4, 4, 4, 0.5 )")
+        .css("border", "1px solid rgba( 255, 255, 255, 0.18 )");
+      $("#basic-nav-dropdown").css("color", "#fff");
+      $("#more-options").css("color", "#fff");
+      $(".card")
+        .css("background", "rgba( 4, 4, 4, 0.2 )")
+        .css("border", "1px solid rgba( 255, 255, 255, 0.18 )");
+    } else {
+      setDarkMode(false);
+      $(".App").css("background-color", "#fff");
+      $(".App .bg-warning").addClass("bg-danger").removeClass("bg-warning");
+      $("#more-options").css("color", "#000");
+      $(".dropdown-menu").css("background-color", "white");
+      $(".App .btn-warning").addClass("btn-danger").removeClass("btn-warning");
+      $(".App .btn-outline-warning")
+        .addClass("btn-outline-danger")
+        .removeClass("btn-outline-warning");
+      $(".App .text-light")
+        .addClass("text-secondary")
+        .removeClass("text-light");
+      $(".App .bg-dark").addClass("bg-light").removeClass("bg-dark");
+      $(".App .text-white").addClass("text-danger").removeClass("text-white");
+      $("nav")
+        .css("background", "rgba(255, 255, 255, 0.7)")
+        .css("border", "1px solid rgba(255, 255, 255, 0.5)");
+      $("#basic-nav-dropdown").css("color", "#af1b3f");
+      $(".card")
+        .css("background", "rgba(255, 255, 255, 0.7)")
+        .css("border", "1px solid rgba(255, 255, 255, 0.5)");
     }
   });
 
@@ -67,8 +116,18 @@ function TopBarAdmin() {
               width="100"
             />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#admin-options"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i className="fa-solid fa-bars" id="more-options"></i>
+          </button>
+          <Navbar.Collapse id="admin-options">
             <Nav
               className="me-auto my-2 my-lg-0"
               style={{ maxHeight: "100px" }}
@@ -114,14 +173,41 @@ function TopBarAdmin() {
                     >
                       Signup requests
                     </NavLink>
-                    <NavLink
-                      className="text-secondary m-0"
-                      onClick={show}
-                      to="/login"
-                      id="signup-requests"
-                    >
-                      Logout
-                    </NavLink>
+                    <div>
+                      <Row>
+                        <div className="col-4">
+                          <Link
+                            className="btn text-light"
+                            onClick={() => {
+                              if (cookies.get("mode") === "dark") {
+                                cookies.set("mode", "light");
+                                setCurrentPage(window.location.href);
+                              } else {
+                                setCurrentPage(window.location.href);
+                                cookies.set("mode", "dark");
+                              }
+                            }}
+                            to={currentPage}
+                          >
+                            {isDarkMode ? (
+                              <i className="fa-solid fa-sun"></i>
+                            ) : (
+                              <i className="fa-solid fa-moon"></i>
+                            )}
+                          </Link>
+                        </div>
+                        <div className="col-8">
+                          <NavLink
+                            className="text-secondary m-0"
+                            onClick={show}
+                            to="/login"
+                            id="signup-requests"
+                          >
+                            Logout
+                          </NavLink>
+                        </div>
+                      </Row>
+                    </div>
                   </Col>
                 </Row>
               </div>

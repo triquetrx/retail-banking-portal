@@ -1,4 +1,4 @@
-import { Container, Image, Modal, NavLink } from "react-bootstrap";
+import { Container, Image, Modal, NavLink, Row } from "react-bootstrap";
 import $ from "jquery";
 import { useState } from "react";
 import Cookies from "universal-cookie";
@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function SidebarAdmin(props) {
   const [isLogout, setLogout] = useState(false);
+  const [currentPage, setCurrentPage] = useState("");
   const cookies = new Cookies();
 
   let randomColor = () => {
@@ -35,6 +36,7 @@ export default function SidebarAdmin(props) {
   let handleClose = () => setLogout(false);
 
   $(document).ready(function () {
+    setCurrentPage("");
     if (window.location.href.includes("dashboard")) {
       $("#dashboard").addClass("active text-danger");
     } else if (window.location.href.includes("transaction")) {
@@ -56,25 +58,37 @@ export default function SidebarAdmin(props) {
         .addClass("text-light")
         .removeClass("text-secondary");
       $(".App .bg-light").addClass("bg-dark").removeClass("bg-light");
+      $(".App .btn-outline-danger")
+        .addClass("btn-outline-warning")
+        .removeClass("btn-outline-danger");
+      $(".App .btn-danger").addClass("btn-warning").removeClass("btn-danger");
       $(".App .text-danger").addClass("text-white").removeClass("text-danger");
       $(".news #card-body").addClass("text-white").remove("text-secondary");
       $(".design").css("background-color", lightRandomColor);
+      $(".card")
+        .css("background", "rgba( 4, 4, 4, 0.2 )")
+        .css("border", "1px solid rgba( 255, 255, 255, 0.18 )");
       $(".sidebar")
-        .css("background", "rgba( 4, 4, 4, 0.8 )")
-        .css("box-shadow", " 0 8px 32px 0 rgba( 31, 38, 135, 0.4 )")
+        .css("background", "rgba( 4, 4, 4, 0.5 )")
         .css("border", "1px solid rgba( 255, 255, 255, 0.18 )");
     } else {
       $(".App").css("background-color", "#fff");
       $(".design").css("background-color", randomColor);
       $(".dropdown-menu").css("background-color", "white");
+      $(".App .btn-outline-warning")
+        .addClass("btn-outline-danger")
+        .removeClass("btn-outline-warning");
+      $(".App .btn-warning").addClass("btn-danger").removeClass("btn-warning");
       $(".App .text-light")
         .addClass("text-secondary")
         .removeClass("text-light");
       $(".App .bg-dark").addClass("bg-light").removeClass("bg-dark");
       $(".App .text-white").addClass("text-danger").removeClass("text-white");
+      $(".card")
+        .css("background", "rgba(255, 255, 255, 0.7)")
+        .css("border", "1px solid rgba(255, 255, 255, 0.5)");
       $(".sidebar")
-        .css("background", "rgba(255, 255, 255, 0.8)")
-        .css("box-shadow", "0 8px 32px 0 rgba(31, 38, 135, 0.4)")
+        .css("background", "rgba(255, 255, 255, 0.7)")
         .css("border", "1px solid rgba(255, 255, 255, 0.5)");
     }
   });
@@ -161,13 +175,38 @@ export default function SidebarAdmin(props) {
           </NavLink>
         </div>
         <div className="logout">
-          <button
-            className="btn btn-block btn-outline-danger"
-            to="/login"
-            onClick={show}
-          >
-            Logout <i className="fa-solid fa-arrow-right-from-bracket"></i>
-          </button>
+          <Row>
+            <div className="col-2" id="toggle-btn">
+              <Link
+                className="btn btn-primary"
+                onClick={() => {
+                  if (cookies.get("mode") === "dark") {
+                    cookies.set("mode", "light");
+                    setCurrentPage(window.location.href);
+                  } else {
+                    setCurrentPage(window.location.href);
+                    cookies.set("mode", "dark");
+                  }
+                }}
+                to={currentPage}
+              >
+                {cookies.get("mode") === "dark" ? (
+                  <i className="fa-solid fa-sun"></i>
+                ) : (
+                  <i className="fa-solid fa-moon"></i>
+                )}
+              </Link>
+            </div>
+            <div className="col-10" id="logout-btn">
+              <button
+                className="btn btn-block btn-outline-danger"
+                to="/login"
+                onClick={show}
+              >
+                Logout <i className="fa-solid fa-arrow-right-from-bracket"></i>
+              </button>
+            </div>
+          </Row>
         </div>
       </Container>
     </div>

@@ -58,7 +58,12 @@ class RequestsAdmin extends Component {
                           <Link
                             to="/new-user"
                             className="btn btn-outline-primary"
-                            onClick={this.state.cookies.set("request", item)}
+                            onClick={this.state.cookies.set("request", item, {
+                              path: "/",
+                              expires: new Date(Date.now() + 30 * 60 * 1000),
+                              secure: true,
+                              sameSite: true,
+                            })}
                           >
                             Create User
                           </Link>
