@@ -4,6 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import Cookie from "universal-cookie";
 import superagent from "superagent";
 import TopBarLandingPage from "./TopBarLandingPage";
+import { AESEncrypt } from "cookie-cryptr";
 
 export default function Login(props) {
   const [isError, setError] = useState(false);
@@ -28,7 +29,7 @@ export default function Login(props) {
           secure: true,
           sameSite: true,
         });
-        cookies.set("user", res.body.name, {
+        cookies.set("user", AESEncrypt(res.body.name, "test"), {
           path: "/",
           expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
           secure: true,

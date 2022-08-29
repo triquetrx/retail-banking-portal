@@ -11,7 +11,7 @@ export default function StatementAdmin(props) {
   const [message, setMessage] = useState("");
 
   let nextStatement = () => {
-    if (statementType != "") {
+    if (statementType !== "") {
       setResult(statementType);
       setNext(true);
     } else {

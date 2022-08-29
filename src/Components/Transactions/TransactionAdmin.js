@@ -12,7 +12,7 @@ export default function TransactionAdmin(props) {
   const [message, setMessage] = useState("");
 
   let nextTransaction = () => {
-    if (transactionType != "") {
+    if (transactionType !== "") {
       setResult(transactionType);
       setNext(true);
     } else {

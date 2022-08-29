@@ -1,3 +1,4 @@
+import { AESDecrypt } from "cookie-cryptr";
 import { Card, Col, Row } from "react-bootstrap";
 import Cookies from "universal-cookie";
 
@@ -60,7 +61,7 @@ export default function DashBoardAdmin(props) {
         <Col>
           <h5 className="mt-3 text-secondary text-right text-danger">
             <i className="fa-solid fa-circle-user mr-1" />
-            {cookies.get("user")}
+            {AESDecrypt(cookies.get("user"), "test")}
           </h5>
         </Col>
       </Row>

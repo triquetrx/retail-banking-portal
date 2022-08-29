@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row, Table, Card } from "react-bootstrap";
+import { Col, Container, Row, Card } from "react-bootstrap";
 import superagent from "superagent";
 
 export default function InterestRates(props) {
