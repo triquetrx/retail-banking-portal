@@ -34,7 +34,7 @@ export default function DashBoardAdmin(props) {
       url: "/new-user",
     },
     {
-      title: "Create new account for online requests",
+      title: "View signup requests",
       description:
         "Create new user and there account on the basis of there request",
       button: "See requests",

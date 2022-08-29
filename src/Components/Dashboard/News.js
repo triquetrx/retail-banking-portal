@@ -38,8 +38,11 @@ export default function News(props) {
             <div key={key} className="m-1">
               <Card style={{ width: "15rem" }}>
                 <Card.Img variant="top" src={item.urlToImage} height="200" />
-                <Card.Body className="text-secondary">
-                  <Card.Title style={{ height: "12rem" }}>
+                <Card.Body>
+                  <Card.Title
+                    className="text-secondary"
+                    style={{ height: "12rem" }}
+                  >
                     {item.title}
                   </Card.Title>
                   <a className="btn btn-outline-primary" href={item.url}>

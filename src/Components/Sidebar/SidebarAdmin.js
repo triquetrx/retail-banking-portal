@@ -17,6 +17,15 @@ export default function SidebarAdmin(props) {
     return color;
   };
 
+  let lightRandomColor = () => {
+    var letters = "BCDEF".split("");
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * letters.length)];
+    }
+    return color;
+  };
+
   let logoutRemove = () => {
     cookies.remove("token");
     cookies.remove("user");
@@ -26,7 +35,6 @@ export default function SidebarAdmin(props) {
   let handleClose = () => setLogout(false);
 
   $(document).ready(function () {
-    $(".design").css("background-color", randomColor);
     if (window.location.href.includes("dashboard")) {
       $("#dashboard").addClass("active text-danger");
     } else if (window.location.href.includes("transaction")) {
@@ -39,6 +47,35 @@ export default function SidebarAdmin(props) {
       $("#signup-requests").addClass("active text-danger");
     } else if (window.location.href.includes("statement")) {
       $("#statement").addClass("active text-danger");
+    }
+
+    if (cookies.get("mode") === "dark") {
+      $(".App").css("background-color", "#040404");
+      $(".dropdown-menu").css("background-color", "#040404");
+      $(".App .text-secondary")
+        .addClass("text-light")
+        .removeClass("text-secondary");
+      $(".App .bg-light").addClass("bg-dark").removeClass("bg-light");
+      $(".App .text-danger").addClass("text-white").removeClass("text-danger");
+      $(".news #card-body").addClass("text-white").remove("text-secondary");
+      $(".design").css("background-color", lightRandomColor);
+      $(".sidebar")
+        .css("background", "rgba( 4, 4, 4, 0.8 )")
+        .css("box-shadow", " 0 8px 32px 0 rgba( 31, 38, 135, 0.4 )")
+        .css("border", "1px solid rgba( 255, 255, 255, 0.18 )");
+    } else {
+      $(".App").css("background-color", "#fff");
+      $(".design").css("background-color", randomColor);
+      $(".dropdown-menu").css("background-color", "white");
+      $(".App .text-light")
+        .addClass("text-secondary")
+        .removeClass("text-light");
+      $(".App .bg-dark").addClass("bg-light").removeClass("bg-dark");
+      $(".App .text-white").addClass("text-danger").removeClass("text-white");
+      $(".sidebar")
+        .css("background", "rgba(255, 255, 255, 0.8)")
+        .css("box-shadow", "0 8px 32px 0 rgba(31, 38, 135, 0.4)")
+        .css("border", "1px solid rgba(255, 255, 255, 0.5)");
     }
   });
 

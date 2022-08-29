@@ -45,7 +45,7 @@ class LandingPage extends Component {
             </div>
           </Row>
         </Container>
-        <div className="whyus p-2 py-5" id="whyus">
+        <div className="whyus bg-light p-2 py-5" id="whyus">
           <WhyUs />
         </div>
         <InterestRates />
