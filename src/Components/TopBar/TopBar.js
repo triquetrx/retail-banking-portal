@@ -5,6 +5,7 @@ import superagent from "superagent";
 import "../css/home.css";
 import TopBarAdmin from "./TopBarAdmin";
 import TopBarUser from "./TopBarUser";
+import { AESDecrypt } from "cookie-cryptr";
 
 class TopBar extends Component {
   constructor(props) {
@@ -16,9 +17,10 @@ class TopBar extends Component {
   }
 
   componentDidMount() {
+    var token = AESDecrypt(this.state.cookies.get("token"), "test");
     superagent
       .get("http://localhost:8001/validate")
-      .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
         this.setState({ userRole: res.body.userRole });
         if (window.location.href.includes("transaction")) {

@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Col, Form, Row, Table } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import superagent from "superagent";
+import { AESDecrypt } from "cookie-cryptr";
 
 class StatementUser extends Component {
   constructor(props) {
@@ -19,9 +20,10 @@ class StatementUser extends Component {
   }
 
   componentDidMount() {
+    var token = AESDecrypt(this.state.cookies.get("token"), "test");
     superagent
       .get(`http://localhost:8003/get-my-account`)
-      .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
         this.setState({
           accountId: res.body.accountId,
@@ -47,12 +49,13 @@ class StatementUser extends Component {
 
     let search = async (e) => {
       e.preventDefault();
+      var token = AESDecrypt(this.state.cookies.get("token"), "test");
       if (this.state.dateFrom === "") {
         superagent
           .get(
             `http://localhost:8003/getAccountStatement/${this.state.accountId}`
           )
-          .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+          .set("Authorization", `Bearer ${token}`)
           .then((res) => {
             console.log(res);
             this.setState({ statement: res.body, ready: true });
@@ -63,7 +66,7 @@ class StatementUser extends Component {
           .get(
             `http://localhost:8003/getAccountStatement/${this.state.accountId}/${this.state.dateFrom}/${this.state.dateTo}`
           )
-          .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+          .set("Authorization", `Bearer ${token}`)
           .then((res) => {
             console.log(res);
             this.setState({ statement: res.body, ready: true });

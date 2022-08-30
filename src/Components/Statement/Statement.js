@@ -8,6 +8,7 @@ import "../css/home.css";
 import TopBar from "../TopBar/TopBar";
 import StatementAdmin from "./StatementAdmin";
 import StatementUser from "./StatementUser";
+import { AESDecrypt } from "cookie-cryptr";
 
 class Statement extends Component {
   constructor(props) {
@@ -19,9 +20,10 @@ class Statement extends Component {
   }
 
   componentDidMount() {
+    var token = AESDecrypt(this.state.cookies.get("token"), "test");
     superagent
       .get("http://localhost:8001/validate")
-      .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
         this.setState({ userRole: res.body.userRole });
         if (window.location.href.includes("transaction")) {

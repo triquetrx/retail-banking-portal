@@ -1,3 +1,4 @@
+import { AESDecrypt } from "cookie-cryptr";
 import { useEffect, useState } from "react";
 import { Table, Modal, Button, Form, Alert } from "react-bootstrap";
 import superagent from "superagent";
@@ -15,11 +16,12 @@ export default function AboutUser(props) {
   const [isAlert, setAlert] = useState(false);
   const [alertType, setAlertType] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
+  var token = AESDecrypt(cookies.get("token"), "test");
 
   useEffect(() => {
     superagent
       .get("http://localhost:8001/validate")
-      .set("Authorization", `Bearer ${cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
         console.log(res);
         setCustomerId(res.body.customerId);
@@ -35,7 +37,7 @@ export default function AboutUser(props) {
     e.preventDefault();
     superagent
       .post("http://localhost:8001/check-password")
-      .set("Authorization", `Bearer ${cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .send({
         confirmPassword: password,
       })
@@ -44,7 +46,7 @@ export default function AboutUser(props) {
         setMore(res.body);
         superagent
           .get(`http://localhost:8003/get-my-account`)
-          .set("Authorization", `Bearer ${cookies.get("token")}`)
+          .set("Authorization", `Bearer ${token}`)
           .then((res) => {
             console.log(res);
             setAccountType(res.body.accountType);
@@ -96,7 +98,9 @@ export default function AboutUser(props) {
           <tbody>
             <tr>
               <td className="text-secondary h6">Customer Name</td>
-              <td className="text-secondary h6">{cookies.get("user")}</td>
+              <td className="text-secondary h6">
+                {AESDecrypt(cookies.get("user"), "test")}
+              </td>
             </tr>
             <tr>
               <td className="text-secondary h6">Customer ID</td>

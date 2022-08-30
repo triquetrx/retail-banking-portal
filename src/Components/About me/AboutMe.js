@@ -7,6 +7,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import "../css/home.css";
 import TopBar from "../TopBar/TopBar";
 import AboutUser from "./AboutUser";
+import { AESDecrypt } from "cookie-cryptr";
 
 class AboutMe extends Component {
   constructor(props) {
@@ -18,9 +19,10 @@ class AboutMe extends Component {
   }
 
   componentDidMount() {
+    var token = AESDecrypt(this.state.cookies.get("token"), "test");
     superagent
       .get("http://localhost:8001/validate")
-      .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
         this.setState({ userRole: res.body.userRole });
       })

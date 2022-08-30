@@ -11,11 +11,14 @@ import Signup from "./Components/LandingPage/Signup";
 import PasswordChangeRequest from "./Components/PasswordChange/PasswordChangeRequest";
 import AboutMe from "./Components/About me/AboutMe";
 import LandingPage from "./Components/LandingPage/LandingPage";
+import PageNotFound from "./Components/PageNotFound";
 
 function App() {
   return (
     <div className="App">
+      <h3>{process.env.ENCRYPTION_KEY}</h3>
       <Routes>
+        <Route path="*" element={<PageNotFound />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<Navigate to="/" />} />
         <Route path="/login" element={<Login />} />

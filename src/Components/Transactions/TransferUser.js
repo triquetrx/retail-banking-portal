@@ -1,3 +1,4 @@
+import { AESDecrypt } from "cookie-cryptr";
 import { useEffect, useState } from "react";
 import { Alert, Col, Form, Row } from "react-bootstrap";
 import superagent from "superagent";
@@ -16,9 +17,10 @@ export default function TransferUser(props) {
 
   let transfer = async (e) => {
     e.preventDefault();
+    var token = AESDecrypt(cookies.get("token"), "test");
     superagent
       .post("http://localhost:8004/transfer")
-      .set("Authorization", `Bearer ${cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .send({
         fromAccountId: fromAccountId,
         toAccountId: toAccountId,
@@ -41,9 +43,10 @@ export default function TransferUser(props) {
   };
 
   useEffect(() => {
+    var token = AESDecrypt(cookies.get("token"), "test");
     superagent
       .get(`http://localhost:8003/get-my-account`)
-      .set("Authorization", `Bearer ${cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
         setFromAccountId(res.body.accountId);
       })

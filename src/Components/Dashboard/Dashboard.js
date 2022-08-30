@@ -9,6 +9,7 @@ import News from "./News";
 import DashBoardAdmin from "./DashBoardAdmin";
 import TopBar from "../TopBar/TopBar";
 import DashBoardUser from "./DashBoardUser";
+import { AESDecrypt } from "cookie-cryptr";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -20,10 +21,12 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    var token = AESDecrypt(this.state.cookies.get("token"), "test");
     superagent
       .get("http://localhost:8001/validate")
-      .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
+        console.log(res);
         this.setState({ userRole: res.body.userRole });
       })
       .catch((err) => {

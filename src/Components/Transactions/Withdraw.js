@@ -1,3 +1,4 @@
+import { AESDecrypt } from "cookie-cryptr";
 import { useState } from "react";
 import { Alert, Col, Form, Row } from "react-bootstrap";
 import superagent from "superagent";
@@ -15,9 +16,10 @@ export default function Deposit(props) {
 
   let withdraw = async (e) => {
     e.preventDefault();
+    var token = AESDecrypt(cookies.get("token"), "test");
     superagent
       .post("http://localhost:8004/withdraw")
-      .set("Authorization", `Bearer ${cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .send({
         accountId: accountId,
         narration: narration,

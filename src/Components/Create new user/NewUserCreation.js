@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Alert, Col, Form, Row } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import superagent from "superagent";
+import { AESDecrypt } from "cookie-cryptr";
 
 export default function NewUserCreation(props) {
   const cookies = new Cookies();
@@ -18,10 +19,11 @@ export default function NewUserCreation(props) {
   const [username, setUsername] = useState("");
 
   let newUser = async (e) => {
+    var token = AESDecrypt(cookies.get("token"), "test");
     e.preventDefault();
     superagent
       .post("http://localhost:8002/create-customer")
-      .set("Authorization", `Bearer ${cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .send({
         name: name,
         addressLine1: address1,

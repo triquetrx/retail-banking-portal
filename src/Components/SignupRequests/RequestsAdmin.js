@@ -3,6 +3,7 @@ import Cookie from "universal-cookie";
 import superagent from "superagent";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { AESDecrypt } from "cookie-cryptr";
 
 class RequestsAdmin extends Component {
   constructor(props) {
@@ -15,9 +16,10 @@ class RequestsAdmin extends Component {
   }
 
   componentDidMount() {
+    var token = AESDecrypt(this.state.cookies.get("token"), "test");
     superagent
       .get("http://localhost:8006/view-all-requests")
-      .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
         console.log(res);
         this.setState({

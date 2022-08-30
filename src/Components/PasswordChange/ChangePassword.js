@@ -3,6 +3,7 @@ import Cookies from "universal-cookie";
 import superagent from "superagent";
 import { Alert, Button, Container, Form } from "react-bootstrap";
 import "../css/home.css";
+import { AESDecrypt } from "cookie-cryptr";
 
 class ChangePassword extends Component {
   constructor(props) {
@@ -20,9 +21,10 @@ class ChangePassword extends Component {
   }
 
   componentDidMount() {
+    var token = AESDecrypt(this.state.cookies.get("token"), "test");
     superagent
       .get("http://localhost:8001/validate")
-      .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
         this.setState({ userRole: res.body.userRole });
       })
@@ -35,9 +37,10 @@ class ChangePassword extends Component {
     let changePassword = async (e) => {
       e.preventDefault();
       if (this.state.newPassword === this.state.confirmPassword) {
+        var token = AESDecrypt(this.state.cookies.get("token"), "test");
         superagent
           .post("http://localhost:8001/change-password")
-          .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+          .set("Authorization", `Bearer ${token}`)
           .send({
             oldPassword: this.state.oldPassword,
             newPassword: this.state.newPassword,

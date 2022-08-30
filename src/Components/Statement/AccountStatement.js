@@ -1,3 +1,4 @@
+import { AESDecrypt } from "cookie-cryptr";
 import { useState } from "react";
 import { Col, Form, Row, Table } from "react-bootstrap";
 import superagent from "superagent";
@@ -14,12 +15,13 @@ export default function AccountStatement(props) {
   const cookies = new Cookies();
 
   let search = async (e) => {
+    var token = AESDecrypt(cookies.get("token"), "test");
     e.preventDefault();
     superagent
       .get(
         `http://localhost:8003/getAccountStatement/${searchText}/${dateFrom}/${dateTo}`
       )
-      .set("Authorization", `Bearer ${cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
         console.log(res);
         setResultReady(true);

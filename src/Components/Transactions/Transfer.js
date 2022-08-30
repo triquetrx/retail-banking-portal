@@ -1,3 +1,4 @@
+import { AESDecrypt } from "cookie-cryptr";
 import { useState } from "react";
 import { Alert, Col, Form, Row } from "react-bootstrap";
 import superagent from "superagent";
@@ -15,10 +16,11 @@ export default function Transfer(props) {
   const cookies = new Cookies();
 
   let transfer = async (e) => {
+    var token = AESDecrypt(cookies.get("token"), "test");
     e.preventDefault();
     superagent
       .post("http://localhost:8004/transfer")
-      .set("Authorization", `Bearer ${cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .send({
         fromAccountId: fromAccountId,
         toAccountId: toAccountId,

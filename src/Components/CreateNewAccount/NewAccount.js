@@ -1,3 +1,4 @@
+import { AESDecrypt } from "cookie-cryptr";
 import { Component } from "react";
 import { Alert, Card, Form, Row } from "react-bootstrap";
 import superagent from "superagent";
@@ -19,9 +20,10 @@ class NewAccount extends Component {
   }
 
   componentDidMount() {
+    var token = AESDecrypt(this.state.cookies.get("token"), "test");
     superagent
       .get("http://localhost:8002/get-customers-without-account")
-      .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+      .set("Authorization", `Bearer ${token}`)
       .then((res) => {
         console.log(res);
         this.setState({
@@ -40,9 +42,10 @@ class NewAccount extends Component {
 
   render() {
     let getData = async (e) => {
+      var token = AESDecrypt(this.state.cookies.get("token"), "test");
       superagent
         .get("http://localhost:8002/get-customers-without-account")
-        .set("Authorization", `Bearer ${this.state.cookies.get("token")}`)
+        .set("Authorization", `Bearer ${token}`)
         .then((res) => {
           console.log(res);
           this.setState({
@@ -143,6 +146,10 @@ class NewAccount extends Component {
                   <button
                     className="btn btn-outline-primary"
                     onClick={() => {
+                      var token = AESDecrypt(
+                        this.state.cookies.get("token"),
+                        "test"
+                      );
                       if (this.state.accountType === "") {
                         this.setState({
                           isAlert: true,
@@ -165,10 +172,7 @@ class NewAccount extends Component {
                         } else {
                           superagent
                             .post("http://localhost:8003/create-account")
-                            .set(
-                              "Authorization",
-                              `Bearer ${this.state.cookies.get("token")}`
-                            )
+                            .set("Authorization", `Bearer ${token}`)
                             .send({
                               customerId: data.customerId,
                               accountType: this.state.accountType,

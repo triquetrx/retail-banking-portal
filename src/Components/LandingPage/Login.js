@@ -23,7 +23,7 @@ export default function Login(props) {
         password: password,
       })
       .then((res) => {
-        cookies.set("token", res.body.token, {
+        cookies.set("token", AESEncrypt(res.body.token, "test"), {
           path: "/",
           expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
           secure: true,

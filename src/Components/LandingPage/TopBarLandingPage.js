@@ -3,6 +3,7 @@ import $ from "jquery";
 import { useState } from "react";
 import Cookies from "universal-cookie";
 import { Link } from "react-router-dom";
+import { AESDecrypt } from "cookie-cryptr";
 
 export default function TopBarLandingPage(props) {
   const [isDarkMode, setDarkMode] = useState(false);
@@ -88,7 +89,7 @@ export default function TopBarLandingPage(props) {
       <div className="design-landing-page"></div>
       <Navbar expand="lg" className="nav-landing-page" fixed="top">
         <Container fluid>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <Image src={require("../../images/banking-logo.png")} width="100" />
           </Navbar.Brand>
           <button
@@ -115,7 +116,14 @@ export default function TopBarLandingPage(props) {
               </Nav.Link>
               <NavDropdown title="More Options" id="basic-nav-dropdown">
                 <NavDropdown.Item className="text-danger" href="/login">
-                  Login
+                  {cookies.get("user") ? (
+                    <>
+                      <i className="fa-solid fa-circle-user mr-1" />
+                      {AESDecrypt(cookies.get("user"), "test")}
+                    </>
+                  ) : (
+                    "Login"
+                  )}
                 </NavDropdown.Item>
                 <NavDropdown.Item className="text-danger" href="/signup">
                   Sign Up
