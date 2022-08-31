@@ -1,15 +1,15 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Getting Started with Banking Portal
+This application was made with the help react js
 
 ## Available Scripts
 
-> After cloning the project
+In the project directory, you can run:
+
+After cloning the project
 ### `npm install`
 
-This command will install all te node modules aka dependencies and follow the steps below
-
-In the project directory, you can run:
+This command will install all te node modules aka dependencies <br/>
+after which follow the steps below
 
 ### `npm start`
 
