@@ -3,9 +3,8 @@ This application was made with the help react js
 
 ## Available Scripts
 
-In the project directory, you can run:
+After cloning the project in the project directory run:
 
-After cloning the project
 ### `npm install`
 
 This command will install all te node modules aka dependencies <br/>
