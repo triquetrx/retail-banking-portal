@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Col, Form, Row } from "react-bootstrap";
+import { Alert, Col, Form, Modal, Row } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import superagent from "superagent";
 import { AESDecrypt } from "cookie-cryptr";
@@ -17,10 +17,13 @@ export default function NewUserCreation(props) {
   const [address2, setAddress2] = useState("");
   const [panNumber, setPanNumber] = useState("");
   const [username, setUsername] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   let newUser = async (e) => {
     var token = AESDecrypt(cookies.get("token"), "test");
     e.preventDefault();
+    setShow(true);
     superagent
       .post("http://localhost:8002/create-customer")
       .set("Authorization", `Bearer ${token}`)
@@ -39,6 +42,7 @@ export default function NewUserCreation(props) {
         setAlert(true);
         setAlertType("success");
         setAlertMessage(`${res.body.message}_WITH_ID_${res.body.customerId}`);
+        setShow(false);
         document.getElementById("name").value = "";
         document.getElementById("emailId").value = "";
         document.getElementById("phoneNumber").value = "";
@@ -56,6 +60,7 @@ export default function NewUserCreation(props) {
         setAlert(true);
         setAlertType("warning");
         setAlertMessage("Something went south. please try again later");
+        setShow(false);
       });
   };
 
@@ -99,6 +104,16 @@ export default function NewUserCreation(props) {
 
   return (
     <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body className="d-flex justify-content-center py-5">
+          <h2 className="loader-container text-center">
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+          </h2>
+        </Modal.Body>
+      </Modal>
       <h3 className="text-secondary">Create new user</h3>
       <hr />
       {isAlert ? (

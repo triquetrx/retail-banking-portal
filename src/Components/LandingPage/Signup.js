@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Alert, Col, Form, Row, Container } from "react-bootstrap";
+import { Alert, Col, Form, Row, Container, Modal } from "react-bootstrap";
 import superagent from "superagent";
+import Bottom from "./Bottom";
 import TopBarLandingPage from "./TopBarLandingPage";
 
 export default function Signup(props) {
@@ -14,9 +15,12 @@ export default function Signup(props) {
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [panNumber, setPanNumber] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   let request = async (e) => {
     e.preventDefault();
+    setShow(true);
     superagent
       .post("http://localhost:8006/signup-request")
       .send({
@@ -33,6 +37,7 @@ export default function Signup(props) {
         setAlert(true);
         setAlertType("success");
         setAlertMessage(`${res.body.message}_WITH_ID_${res.body.requestId}`);
+        setShow(false);
         document.getElementById("name").value = "";
         document.getElementById("emailId").value = "";
         document.getElementById("phoneNumber").value = "";
@@ -46,6 +51,7 @@ export default function Signup(props) {
         setAlert(true);
         setAlertType("warning");
         setAlertMessage("Something went south. Please try again later");
+        setShow(false);
       });
   };
 
@@ -61,6 +67,16 @@ export default function Signup(props) {
 
   return (
     <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body className="d-flex justify-content-center py-5">
+          <h2 className="loader-container text-center">
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+          </h2>
+        </Modal.Body>
+      </Modal>
       <TopBarLandingPage />
       <Container className="my-5 py-5">
         <h3 className="text-secondary">New Account Request Form</h3>
@@ -176,16 +192,7 @@ export default function Signup(props) {
           </Row>
         </Form>
       </Container>
-      <div className="text-center bg-danger p-3" style={{ color: "#fff" }}>
-        © Designed by
-        <a
-          className="fw-bold pl-1"
-          style={{ color: "#fff" }}
-          href="https://triquetrx.netlify.app"
-        >
-          triquetrx
-        </a>
-      </div>
+      <Bottom />
     </>
   );
 }

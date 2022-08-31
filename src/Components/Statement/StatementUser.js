@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Col, Form, Row, Table } from "react-bootstrap";
+import { Col, Form, Modal, Row, Table } from "react-bootstrap";
 import Cookies from "universal-cookie";
 import superagent from "superagent";
 import { AESDecrypt } from "cookie-cryptr";
@@ -16,6 +16,7 @@ class StatementUser extends Component {
       dateTo: "",
       start: 0,
       end: 6,
+      show: false,
     };
   }
 
@@ -27,6 +28,7 @@ class StatementUser extends Component {
       .then((res) => {
         this.setState({
           accountId: res.body.accountId,
+          show: false,
         });
       })
       .catch(console.error);
@@ -47,9 +49,12 @@ class StatementUser extends Component {
       });
     };
 
+    const handleClose = () => this.setState({ show: false });
+
     let search = async (e) => {
       e.preventDefault();
       var token = AESDecrypt(this.state.cookies.get("token"), "test");
+      this.setState({ show: true });
       if (this.state.dateFrom === "") {
         superagent
           .get(
@@ -58,7 +63,7 @@ class StatementUser extends Component {
           .set("Authorization", `Bearer ${token}`)
           .then((res) => {
             console.log(res);
-            this.setState({ statement: res.body, ready: true });
+            this.setState({ statement: res.body, ready: true, show: false });
           })
           .catch(console.error);
       } else {
@@ -69,13 +74,23 @@ class StatementUser extends Component {
           .set("Authorization", `Bearer ${token}`)
           .then((res) => {
             console.log(res);
-            this.setState({ statement: res.body, ready: true });
+            this.setState({ statement: res.body, ready: true, show: false });
           })
           .catch(console.error);
       }
     };
     return (
       <>
+        <Modal show={this.state.show} onHide={handleClose}>
+          <Modal.Body className="d-flex justify-content-center py-5">
+            <h2 className="loader-container text-center">
+              <span className="bg-danger circle"></span>
+              <span className="bg-danger circle"></span>
+              <span className="bg-danger circle"></span>
+              <span className="bg-danger circle"></span>
+            </h2>
+          </Modal.Body>
+        </Modal>
         <h3 className="text-secondary mt-4">Statements</h3>
         <hr />
         <Form onSubmit={search}>

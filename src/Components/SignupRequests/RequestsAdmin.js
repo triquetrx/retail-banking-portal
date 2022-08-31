@@ -1,7 +1,7 @@
 import { Component } from "react";
 import Cookie from "universal-cookie";
 import superagent from "superagent";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AESDecrypt } from "cookie-cryptr";
 

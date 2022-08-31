@@ -8,6 +8,7 @@ import "../css/home.css";
 import TopBar from "../TopBar/TopBar";
 import RequestsAdmin from "./RequestsAdmin";
 import { AESDecrypt } from "cookie-cryptr";
+import PageNotFound from "../PageNotFound";
 
 class SignupRequest extends Component {
   constructor(props) {
@@ -53,9 +54,7 @@ class SignupRequest extends Component {
             </>
           ) : (
             <>
-              <h4 className="text-secondary">
-                Seems like you are lost mate!!!
-              </h4>
+              <PageNotFound />
             </>
           )
         ) : (

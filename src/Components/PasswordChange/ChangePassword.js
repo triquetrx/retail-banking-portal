@@ -1,7 +1,7 @@
 import { Component } from "react";
 import Cookies from "universal-cookie";
 import superagent from "superagent";
-import { Alert, Button, Container, Form } from "react-bootstrap";
+import { Alert, Button, Container, Form, Modal } from "react-bootstrap";
 import "../css/home.css";
 import { AESDecrypt } from "cookie-cryptr";
 
@@ -17,6 +17,7 @@ class ChangePassword extends Component {
       isAlert: false,
       alertType: "",
       alertMessage: "",
+      show: false,
     };
   }
 
@@ -34,8 +35,11 @@ class ChangePassword extends Component {
   }
 
   render() {
+    const handleClose = () => this.setState({ show: false });
+
     let changePassword = async (e) => {
       e.preventDefault();
+      this.setState({ show: true });
       if (this.state.newPassword === this.state.confirmPassword) {
         var token = AESDecrypt(this.state.cookies.get("token"), "test");
         superagent
@@ -50,6 +54,7 @@ class ChangePassword extends Component {
               isAlert: true,
               alertType: "success",
               alertMessage: "Password changed successfully",
+              show: false,
             });
           })
           .catch((err) => {
@@ -57,6 +62,7 @@ class ChangePassword extends Component {
               isAlert: true,
               alertType: "danger",
               alertMessage: "Password does not match",
+              show: false,
             });
           });
       } else {
@@ -64,12 +70,23 @@ class ChangePassword extends Component {
           isAlert: true,
           alertType: "danger",
           alertMessage: "New password and confirm password didn't match",
+          show: false,
         });
       }
     };
 
     return (
       <>
+        <Modal show={this.state.show} onHide={handleClose}>
+          <Modal.Body className="d-flex justify-content-center py-5">
+            <h2 className="loader-container text-center">
+              <span className="bg-danger circle"></span>
+              <span className="bg-danger circle"></span>
+              <span className="bg-danger circle"></span>
+              <span className="bg-danger circle"></span>
+            </h2>
+          </Modal.Body>
+        </Modal>
         {this.state.isAlert ? (
           <Alert variant={this.state.alertType}>
             {this.state.alertMessage}

@@ -7,6 +7,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import "../css/home.css";
 import TopBar from "../TopBar/TopBar";
 import NewUserCreation from "./NewUserCreation";
+import PageNotFound from "../PageNotFound";
 import { AESDecrypt } from "cookie-cryptr";
 
 class NewUserAdmin extends Component {
@@ -54,7 +55,7 @@ class NewUserAdmin extends Component {
           ) : (
             <>
               <h4 className="text-secondary">
-                Seems like you are lost mate!!!
+                <PageNotFound />
               </h4>
             </>
           )

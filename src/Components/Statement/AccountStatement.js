@@ -1,6 +1,6 @@
 import { AESDecrypt } from "cookie-cryptr";
 import { useState } from "react";
-import { Col, Form, Row, Table } from "react-bootstrap";
+import { Col, Form, Modal, Row, Table } from "react-bootstrap";
 import superagent from "superagent";
 import Cookies from "universal-cookie";
 
@@ -13,10 +13,13 @@ export default function AccountStatement(props) {
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(6);
   const cookies = new Cookies();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   let search = async (e) => {
     var token = AESDecrypt(cookies.get("token"), "test");
     e.preventDefault();
+    setShow(true);
     superagent
       .get(
         `http://localhost:8003/getAccountStatement/${searchText}/${dateFrom}/${dateTo}`
@@ -26,8 +29,13 @@ export default function AccountStatement(props) {
         console.log(res);
         setResultReady(true);
         setResult(res.body);
+        setShow(false);
+        setShow(false);
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error(error);
+        setShow(false);
+      });
   };
 
   let more = () => {
@@ -42,6 +50,16 @@ export default function AccountStatement(props) {
 
   return (
     <div className="mb-3">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body className="d-flex justify-content-center py-5">
+          <h2 className="loader-container text-center">
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+          </h2>
+        </Modal.Body>
+      </Modal>
       <h4 className="text-secondary">Account Statement</h4>
       <Form className="mt-3" onSubmit={search}>
         <Form.Group className="mb-3 text-secondary" controlId="accountId">

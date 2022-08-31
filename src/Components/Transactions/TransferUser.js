@@ -1,6 +1,6 @@
 import { AESDecrypt } from "cookie-cryptr";
 import { useEffect, useState } from "react";
-import { Alert, Col, Form, Row } from "react-bootstrap";
+import { Alert, Col, Form, Modal, Row } from "react-bootstrap";
 import superagent from "superagent";
 import Cookies from "universal-cookie";
 
@@ -14,9 +14,12 @@ export default function TransferUser(props) {
   const [message, setMessage] = useState("");
   const [variant, setVariant] = useState("");
   const cookies = new Cookies();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
 
   let transfer = async (e) => {
     e.preventDefault();
+    setShow(true);
     var token = AESDecrypt(cookies.get("token"), "test");
     superagent
       .post("http://localhost:8004/transfer")
@@ -33,12 +36,14 @@ export default function TransferUser(props) {
         setAlert(true);
         setVariant("success");
         setMessage(res.body.fromAccount + "_AND_" + res.body.toAccount);
+        setShow(false);
       })
       .catch((err) => {
         console.error(err);
         setAlert(true);
         setVariant("danger");
         setMessage("Error occured");
+        setShow(false);
       });
   };
 
@@ -55,6 +60,16 @@ export default function TransferUser(props) {
 
   return (
     <div className="mt-4 mb-2">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body className="d-flex justify-content-center py-5">
+          <h2 className="loader-container text-center">
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+            <span className="bg-danger circle"></span>
+          </h2>
+        </Modal.Body>
+      </Modal>
       <h3 className="text-secondary">Transfer Money</h3>
       <hr />
       {isAlert ? (
