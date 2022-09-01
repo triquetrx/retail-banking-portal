@@ -12,6 +12,7 @@ import PasswordChangeRequest from "./Components/PasswordChange/PasswordChangeReq
 import AboutMe from "./Components/About me/AboutMe";
 import LandingPage from "./Components/LandingPage/LandingPage";
 import PageNotFound from "./Components/PageNotFound";
+import TrackRequest from "./Components/LandingPage/TrackReqeust";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="*" element={<PageNotFound />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/track-request" element={<TrackRequest />} />
         <Route path="/home" element={<Navigate to="/" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />

@@ -218,6 +218,7 @@ class NewAccount extends Component {
                                 .catch((err) => {
                                   this.setState({
                                     isAlert: true,
+                                    show: false,
                                     alertMessage: err.message
                                       .split(",")[0]
                                       .split(":")[1],

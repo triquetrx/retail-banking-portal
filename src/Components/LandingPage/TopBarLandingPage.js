@@ -125,9 +125,21 @@ export default function TopBarLandingPage(props) {
                     "Login"
                   )}
                 </NavDropdown.Item>
-                <NavDropdown.Item className="text-danger" href="/signup">
-                  Sign Up
-                </NavDropdown.Item>
+                {cookies.get("user") ? (
+                  <></>
+                ) : (
+                  <>
+                    <NavDropdown.Item className="text-danger" href="/signup">
+                      Sign Up
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      className="text-danger"
+                      href="/track-request"
+                    >
+                      Track Request
+                    </NavDropdown.Item>
+                  </>
+                )}
                 <NavDropdown.Divider />
                 <div
                   className="text-danger mode-toggle form-check form-switch"
